@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Nombre:	md5-matic.sh
+# Autor:	Charlie Martínez® <cmartinez@quirinux.org>
+# Licencia:	https://www.gnu.org/licenses/gpl-3.0.txt
+# Descripción:	Calcula comprobación md5sum para la generación de paquetes deb
+# Versión:	1.0
+
+# Ejecutar dentro del directorio contenedor del futuro paquete deb
+
+# Busca en los directorios /opt /etc y /usr
+
+find ./usr/* -type f -print0 | xargs -0 -n 1 md5sum > md5sums1; sed -i 's/..\///' md5sums1 && find ./opt/* -type f -print0 | xargs -0 -n 1 md5sum > md5sums2; sed -i 's/..\///' md5sums2 && find ./etc/* -type f -print0 | xargs -0 -n 1 md5sum > md5sums3; sed -i 's/..\///' md5sums3 && cat md5sums1 md5sums2 md5sums3 > md5sum && rm md5sums1 && rm md5sums2 && rm md5sums3
