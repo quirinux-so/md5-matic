@@ -10,4 +10,19 @@
 
 # Busca en los directorios /opt /etc y /usr
 
-find ./usr/* -type f -print0 | xargs -0 -n 1 md5sum > md5sums1; sed -i 's/..\///' md5sums1 && find ./opt/* -type f -print0 | xargs -0 -n 1 md5sum > md5sums2; sed -i 's/..\///' md5sums2 && find ./etc/* -type f -print0 | xargs -0 -n 1 md5sum > md5sums3; sed -i 's/..\///' md5sums3 && cat md5sums1 md5sums2 md5sums3 > md5sums && rm md5sums1 && rm md5sums2 && rm md5sums3
+USR="./usr"
+if [ -e ~{USR}]; then
+find ./usr/* -type f -print0 | xargs -0 -n 1 md5sum > md5sums1; sed -i 's/..\///' md5sums1
+fi
+
+OPT="./opt"
+if [ -e ~{OPT}]; then
+find ./opt/* -type f -print0 | xargs -0 -n 1 md5sum > md5sums2; sed -i 's/..\///' md5sums2
+fi
+
+ETC="./etc"
+if [ -e ~{ETC}]; then
+find ./etc/* -type f -print0 | xargs -0 -n 1 md5sum > md5sums3; sed -i 's/..\///' md5sums3
+fi
+
+cat md5sums1 md5sums2 md5sums3 > md5sums && rm md5sums1 && rm md5sums2 && rm md5sums3
